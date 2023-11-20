@@ -1,70 +1,49 @@
-# LLM Server for inconsistent model purpose
+# LLM Server for Inconsistent Model Serving with vLLM
+This server is based SOTA LLM-serving: https://vllm.readthedocs.io/en/latest/
 
-## Getting started
-1. Install requirements: `pip install -r requirements.txt`
-2. Start server: `python app.py`
+## Initial Setup
+1. **Installation of Requirements:** Execute `pip install -r requirements.txt` to install necessary packages.
+2. **Launching the Server:** Run the command `python app.py` to start the server.
 
-## API Usage
-- View API documents at http://localhost:8000/docs
-- Example request:
-```
-curl -X 'POST' \
-  'http://localhost:8000/generate' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "seeds": [
-    0
-  ],
-  "strengths": [
-    1
-  ],
-  "prompts": [
-    "string", "hello"
-  ],
-  "max_length": 128
-}'
-```
-Example response
-```
-[
-  {
-    "id": "cmpl-786a475b60d548f6a058b96cc2344abc",
-    "object": "text_completion",
-    "created": 4617781,
-    "model": "mistralai/Mistral-7B-Instruct-v0.1-seed-0-strength-1",
-    "choices": [
-      {
-        "index": 0,
-        "text": "[] arr = {\"apple\", \"banana\", \"cherry\", \"date\", \"fig\", \"grape\"};\n\nRandom rand = new Random();\n\nint choice = rand.Next(arr.Length);\n\nConsole.WriteLine(arr[choice]);\n\nConsole.ReadLine();",
-        "logprobs": null,
-        "finish_reason": "stop"
+## API Integration and Usage
+- **Accessing API Documentation:** Visit http://localhost:8000/docs for detailed API information.
+- **Making an API Request:**
+  Example of a request:
+  ```
+  curl -X 'POST' \
+    'http://localhost:8000/generate' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "seeds": [0],
+    "strengths": [1],
+    "prompts": ["string", "hello"],
+    "max_length": 128
+  }'
+  ```
+- **Example of API Response:**
+  The response includes details such as the ID, object type, creation timestamp, model used, and the choices array with text completions, log probabilities, and finish reasons. An example response is as follows:
+  ```
+  [
+    {
+      "id": "cmpl-786a475b60d548f6a058b96cc2344abc",
+      "object": "text_completion",
+      "created": 4617781,
+      "model": "mistralai/Mistral-7B-Instruct-v0.1-seed-0-strength-1",
+      "choices": [
+        {
+          "index": 0,
+          "text": "Sample text completion here...",
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 2,
+        "total_tokens": 66,
+        "completion_tokens": 64
       }
-    ],
-    "usage": {
-      "prompt_tokens": 2,
-      "total_tokens": 66,
-      "completion_tokens": 64
-    }
-  },
-  {
-    "id": "cmpl-786a475b60d548f6a058b96cc2344abc",
-    "object": "text_completion",
-    "created": 4617781,
-    "model": "mistralai/Mistral-7B-Instruct-v0.1-seed-0-strength-1",
-    "choices": [
-      {
-        "index": 0,
-        "text": " there\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-        "logprobs": null,
-        "finish_reason": "length"
-      }
-    ],
-    "usage": {
-      "prompt_tokens": 3,
-      "total_tokens": 131,
-      "completion_tokens": 128
-    }
-  }
-]
-```
+    },
+    // Additional responses...
+  ]
+  ```
